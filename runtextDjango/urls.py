@@ -20,5 +20,5 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('runtext/', views.create_runtext),
+    path('runtext', views.create_runtext),
 ]
