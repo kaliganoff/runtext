@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 import cv2
 import numpy as np
+from .models import Request
 
 def create_runtext(request):
     text = request.GET.get('text', 'default')
+    Request.objects.create(text=text)
 
     width, height = 100, 100
 
