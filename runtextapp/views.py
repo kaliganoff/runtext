@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import FileResponse
 import cv2
 import numpy as np
 from .models import Request
+import os
 
 def create_runtext(request):
     text = request.GET.get('text', 'default')
@@ -13,6 +14,9 @@ def create_runtext(request):
 
     frame = np.zeros((height, width, 3), dtype=np.uint8)
 
+    pink_color = np.array([255, 105, 255], dtype=np.uint8)
+
+
     x, y = width, height // 2
 
     font = cv2.FONT_HERSHEY_TRIPLEX
@@ -21,7 +25,7 @@ def create_runtext(request):
     font_color = (255, 255, 255)
 
     for t in range(72): 
-        frame.fill(0)
+        frame[:] = pink_color
 
         x -= 10
 
@@ -30,4 +34,8 @@ def create_runtext(request):
         out.write(frame)
 
     out.release()
-    return HttpResponse('Video with text "' + text + '" created successfully!')
+    video_path = "runtext.mp4"
+    video_file = open(video_path, 'rb')
+    response = FileResponse(video_file, as_attachment=True, filename=os.path.basename(video_path))
+
+    return response
