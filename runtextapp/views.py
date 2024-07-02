@@ -19,7 +19,7 @@ def create_runtext(request):
 
     x, y = width, height // 2
 
-    font = cv2.FONT_HERSHEY_TRIPLEX
+    font = cv2.FONT_HERSHEY_COMPLEX
     font_scale = 1
     font_thickness = 2
     font_color = (255, 255, 255)
