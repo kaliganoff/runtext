@@ -24,10 +24,13 @@ def create_runtext(request):
     font_thickness = 2
     font_color = (255, 255, 255)
 
+    text_width = cv2.getTextSize(text, font, font_scale, font_thickness)[0][0]
+    print(text_width)
+
     for t in range(72): 
         frame[:] = pink_color
 
-        x -= 10
+        x -= (text_width + 100) // 72
 
         cv2.putText(frame, text, (x, y), font, font_scale, font_color, font_thickness)
 
