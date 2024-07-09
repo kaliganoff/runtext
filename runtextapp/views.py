@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from .models import Request
 import os
+import math
 
 def create_runtext(request):
     text = request.GET.get('text', 'default')
@@ -30,9 +31,10 @@ def create_runtext(request):
     for t in range(72): 
         frame[:] = pink_color
 
-        x -= (text_width + 100) // 72
-
         cv2.putText(frame, text, (x, y), font, font_scale, font_color, font_thickness)
+
+        x -= math.ceil((text_width + 100) / 72)
+
 
         out.write(frame)
 
